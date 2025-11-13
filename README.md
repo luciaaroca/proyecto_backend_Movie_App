@@ -1,4 +1,4 @@
-# proyecto_backend_Movie_App### Proyecto backend: Movie App
+### Proyecto backend: Movie App
 
 ### Requisitos del proyecto
 
