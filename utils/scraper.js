@@ -11,10 +11,10 @@ const extractMovieData = async (url, browser) => {
         // Aquí irán los selectors que tú encuentres para:
         // media de reseña y opiniones
 
-        movieData['rating'] = await page.$eval("#content-layout > section > div > div.card.entity-card.entity-card-list.cf.entity-card-overview > div.rating-holder.rating-holder-3 > div:nth-child(1)", rating => rating.innerHTML);
+        movieData['rating'] = await page.$eval(".stareval-note", rating => rating.innerHTML);
         
         // opinions: suponiendo que hay varios elementos con opiniones
-        // movieData['reviews'] = await page.$$eval("#pro-reviews > li:nth-child(1) > div > a > div", reviews => reviews.map(r => r.innerText).slice(0, 5)); // solo las primeras 5 opiniones
+        movieData['reviews'] = await page.$$eval(".editorial-content.cf", reviews => reviews.map(r => r.innerText).slice(0, 5));
 
         return movieData;
     } catch (err) {
@@ -33,7 +33,7 @@ const scrap = async (url) => {
         console.log(`Navigating to ${url}...`);
 
         // Capturamos los links de cada película
-        const tmpurls = await page.$$eval("#top-movies .mc-title a", data => data.map(a => a.href));
+        const tmpurls = await page.$$eval("#content-layout .meta h2 a", data => data.map(a => a.href));
         const urls = tmpurls.filter((link, index) => tmpurls.indexOf(link) === index);
         const urls2 = urls.slice(0, 5); // solo las primeras 5 películas
 
