@@ -1,6 +1,8 @@
 const express = require("express"); //Esta importando express
 const app = express(); //Creando el servidor
 const port = 3000; //Puerto de pruebas
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 //Para leer el fichero
 require("dotenv").config();
@@ -45,6 +47,9 @@ app.use('/api/user', userRoutes);
 const moviesWebRoutes = require("./routes/moviesWeb.routes");
 app.use('/',moviesWebRoutes);
 //*******************************************
+
+// Endpoint para la documentación de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(error404);
 
