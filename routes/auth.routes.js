@@ -29,15 +29,30 @@ router.get("/google/callBack",
     }
 );
 //router.get('/logout', authControllers.logout);
+// router.get('/logout', (req, res) => {
+//     req.logout((err) => {
+//         if (err) return next(err);
+//         req.session.destroy(() => {
+//             res.clearCookie('connect.sid'); // Eliminar la cookie de sesión
+//             res.clearCookie('token'); // Eliminar el token JWT
+//             res.redirect('/login');
+//         });
+//     });
+// });
+
+//Log out
 router.get('/logout', (req, res) => {
-    req.logout((err) => {
-        if (err) return next(err);
-        req.session.destroy(() => {
-            res.clearCookie('connect.sid'); // Eliminar la cookie de sesión
-            res.clearCookie('token'); // Eliminar el token JWT
-            res.redirect('/login');
-        });
-    });
+    // Si hubiera una sesión, la destruimos (opcional)
+    if (req.session) {
+        req.session.destroy(() => {});
+    }
+
+    // Borrar cookies
+    res.clearCookie('token');
+    res.clearCookie('connect.sid');  
+
+    // Redirigir al login
+    return res.redirect('/login');
 });
 
 router.get('/user/dashboard', authMiddleware, authorizeRole('user'), (req, res) => {

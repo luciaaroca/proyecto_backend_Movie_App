@@ -15,18 +15,25 @@ passport.use(new GoogleStrategy({
         let user = await userModels.getUserByEmail(profile.emails[0].value);
 
         // Si no existe, crearlo con rol 'user'
-        if (!user) {
+           if (!user) {
             console.log('Usuario no encontrado, creando uno nuevo.');
-            user = await userModels.createUser(
-                profile.displayName, // name
-                profile.emails[0].value, // email
-                'user', // role
-                '123ABCgoogle$', // No se requiere contraseña para usuarios de Google
-            );
+
+            await userModels.createUser({
+                username: profile.displayName,
+                email: email,
+                role: 'user',
+                password: '123ABCgoogle$' // No se usará pero requiere campo
+            });
+
+            user = await userModels.getUserByEmail(email);
         }
 
         // Generar un JWT para el usuario
-        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+          const token = jwt.sign(
+            { id: user.id_user, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
         console.log('JWT generado:', token);
         return done(null, { user, token });
     } catch (error) {
