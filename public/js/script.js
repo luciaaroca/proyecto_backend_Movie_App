@@ -45,15 +45,23 @@ const botonDelete = document.getElementById('deleteButton');
       }
 
       const result = await response.json();
-      Swal.fire({
-        title: "Favorito eliminado",
-        icon: "success",
-        draggable: true
+      const { isConfirmed } = await Swal.fire({
+        title: "¿Deseas eliminar esta película favorita?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
       });
 
+      if (isConfirmed) {
+        console.log("Película eliminada");
+      } else {
+        console.log("Operación cancelada");
+      }
+      
       setTimeout(() => {
         location.reload();
-      }, 2000);
+      }, 1000);
       
     } catch (error) {
       console.error('Error:', error.message);
