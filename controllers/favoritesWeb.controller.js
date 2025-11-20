@@ -14,4 +14,4 @@ const getAllFavorites = async (req, res) => {
   }
 };
 
-module.exports = { getAllFavorites, createFavorite};
+module.exports = { getAllFavorites};
