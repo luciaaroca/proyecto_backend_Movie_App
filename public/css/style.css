@@ -56,6 +56,7 @@ table {
 }
 
 body {
+
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   background-color: #f3f4f2;
@@ -63,7 +64,9 @@ body {
   padding: 20px;
 
 }
-
+#result{
+    background-color: aquamarine;
+}
 main {
   max-width: 1000px;
   margin: 0 auto;
@@ -97,7 +100,7 @@ select {
 }
 
 button {
-  padding: 10px 20px;
+  padding: 20px;
   border: none;
   background-color: #0c36fb;
   color: rgb(253, 253, 253);
@@ -125,6 +128,7 @@ a button {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   padding: 15px;
   margin-bottom: 15px;
+  width: 300px;
 }
 
 .movie-card img {
