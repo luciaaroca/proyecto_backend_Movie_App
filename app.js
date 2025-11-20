@@ -6,6 +6,7 @@ const passport = require('passport');
 require("dotenv").config();
 
 
+
 require('./auth/google.auth.js'); // Importar configuración de Google Auth
 const session = require('express-session');
 
@@ -51,11 +52,13 @@ app.get("/", (request, response) => {
 });
 
 
+
+
+
 // Rutas: Habilita el fichero que hemos creado
 const movieRoutes = require("./routes/movies.route");
 const userRoutes = require("./routes/users.route");
 const favoritesRoutes = require("./routes/favorites.route.js")
-
 // API: Usar las rutas definidas 
 app.use('/api/movie', movieRoutes);
 app.use('/api/user', userRoutes);
@@ -65,10 +68,8 @@ app.use('/api/favorites', favoritesRoutes);
 //Rutas WEB---
 const moviesWebRoutes = require("./routes/moviesWeb.routes");
 const favoritesWebRoutes = require("./routes/favoritesWeb.route.js");
-
 app.use('/',moviesWebRoutes);
-app.use('/', favoritesWebRoutes);
-//*******************************************
+app.use('/',favoritesWebRoutes);
 //-----
 
 
